@@ -1,5 +1,5 @@
 FROM node:latest
-MAINTAINER Douglas Quintanilha
+MAINTAINER merciof
 ENV NODE_ENV=development
 COPY . /var/www
 WORKDIR /var/www
