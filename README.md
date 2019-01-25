@@ -1,2 +1,2 @@
-# alura-books
-material disponibilizado em curso de docker da alura
+# alura-docker
+Projeto do curso de Docker
