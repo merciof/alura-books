@@ -10,7 +10,7 @@ services:
       context: .
     image: merciof/ecommerce-livro
     container_name: rural-books
-    port:
+    ports:
       - 3000
     networks: 
       - minha-rede
