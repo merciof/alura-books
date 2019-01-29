@@ -15,3 +15,27 @@ RUN npm install # executa o comando npm install e instala as dependências defin
 ENTRYPOINT ["npm", "start"] # comando executado ao container ser levantado, ele executa o arquivo server.js 
 EXPOSE 3000 # expõe a porta 3000
 ```
+
+```yml
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    networks:
+      - minha-rede
+  node:
+    build:
+      dockerfile: ./Dockerfile    
+      context: .
+    image: merciof/ecommerce-livro
+    container_name: rural-books
+    ports:
+      - 3000
+    networks: 
+      - minha-rede
+    depends_on:
+      - mongodb
+networks:
+  minha-rede:
+    driver: bridge
+```
