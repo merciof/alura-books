@@ -1,0 +1,21 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    networks:
+      - minha-rede
+  node:
+    build:
+      dockerfile: ./Dockerfile    
+      context: .
+    image: merciof/ecommerce-livro
+    container_name: rural-books
+    port:
+      - 3000
+    networks: 
+      - minha-rede
+    depends_on:
+      - mongo-db
+networks:
+  minha-rede:
+    driver: bridge
