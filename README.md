@@ -5,7 +5,7 @@ Porta do servidor web no play with docker: 32768
 
 Este Dockerfile constrói um container baseado no node que irá servir os arquivos estáticos (HTML,CSS) e também realizará a comunicação com o container mongo (base de dados).
 
-```yml
+```Dockerfile
 FROM node:latest # constrói a partir da última versãp do node disponibilizada no dockerhub, caso ela não esteja presente localmente 
 MAINTAINER merciof 
 ENV NODE_ENV=development
