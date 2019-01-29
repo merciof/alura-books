@@ -14,6 +14,9 @@ require('./database')(`mongodb://${config.databaseConfig.host}:27017/${config.da
 // Configura a porta pela variavel de ambiente ou usa a 3000 como padrão
 const port = process.env.port || 3000
 
+//configura a pasta public para servir os arquivos estaticos CSS, HTML e imagens
+app.use(express.static("public"));
+
 //Configura o arquivo de rotas
 app.use(routes)
 
