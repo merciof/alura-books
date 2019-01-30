@@ -156,7 +156,7 @@ Para executar o projeto podem ser feitos os seguintes comandos:
 Criaçao da rede local 'minha-rede' para a comunicação entre o containeres:
 
 ```bash
-docker create network minha-rede 
+sudo docker network create --driver bridge minha-rede 
 ```
 
 Em seguida, o primeiro container pode ser subido com o comando: 
