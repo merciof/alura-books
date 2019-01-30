@@ -151,8 +151,17 @@ ubuntu uses an image, skipping
 
 A imagem do projeto foi subida no ducker hub: https://cloud.docker.com/u/merciof/repository/docker/merciof/ecommerce-livro
 
-Assim, o primeiro container pode ser subido com o comando: 
+Para executar o projeto podem ser feitos os seguintes comandos:
+
+Criaçao da rede local 'minha-rede' para a comunicação entre o containeres:
 
 ```bash
-docker run -p 80:3000 merciof/ecommerce-livro
+docker create network minha-rede 
+```
+
+Em seguida, o primeiro container pode ser subido com o comando: 
+
+```bash
+# a flag -d faz o container rodar separadamente do terminal e a -p associa a porta 80 do host a porta 3000 exposta no container
+docker run -d -p 80:3000 --network minha-rede merciof/ecommerce-livro 
 ```
