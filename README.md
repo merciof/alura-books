@@ -162,6 +162,13 @@ docker create network minha-rede
 Em seguida, o primeiro container pode ser subido com o comando: 
 
 ```bash
-# a flag -d faz o container rodar separadamente do terminal e a -p associa a porta 80 do host a porta 3000 exposta no container
+# a flag -d faz o container rodar separadamente do terminal 
+# -p associa a porta 80 do host a porta 3000 exposta no container
 docker run -d -p 80:3000 --network minha-rede merciof/ecommerce-livro 
 ```
+
+```bash
+docker run -d --network minha-rede
+```
+
+O projeto está on na aws no seguinte host: ec2-3-90-146-4.compute-1.amazonaws.com
