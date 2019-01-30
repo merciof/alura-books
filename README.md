@@ -148,3 +148,11 @@ Removing intermediate container 2df958a7ec96
 Successfully built 2cc86de69f55
 Successfully tagged merciof/ecommerce-book:latest
 ubuntu uses an image, skipping
+
+A imagem do projeto foi subida no ducker hub: https://cloud.docker.com/u/merciof/repository/docker/merciof/ecommerce-livro
+
+Assim, o primeiro container pode ser subido com o comando: 
+
+```bash
+docker run -p 80:3000 merciof/ecommerce-livro
+```
