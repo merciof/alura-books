@@ -2,6 +2,7 @@ version: '2'
 services:
   mongodb:
     image: mongo
+    container_name: mongodb
     networks:
       - minha-rede
   node:
