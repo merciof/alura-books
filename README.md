@@ -3,7 +3,7 @@ Projeto do curso de Docker
 
 Porta do servidor web no play with docker: 32768
 
-Este Dockerfile constrói um container baseado no node que irá servir os arquivos estáticos (HTML,CSS) e também realizará a comunicação com o container mongo (base de dados).
+Este Dockerfile constrói um container baseado no node que irá servir os arquivos estáticos (HTML, CSS) e também realizará a comunicação com o container mongo (base de dados).
 
 ```Dockerfile
 FROM node:latest # constrói a partir da última versãp do node disponibilizada no dockerhub, caso ela não esteja presente localmente 
@@ -17,20 +17,20 @@ EXPOSE 3000 # expõe a porta 3000
 ```
 
 ```yml
-version: '3'
-services:
+version: '2' # especifica a versão do Compose
+services: # descrição dos serviços a serem construídos
   mongodb:
-    image: mongo
-    networks:
-      - minha-rede
+    image: mongo # nome da imagem a ser utilizada, será baixada a última versão do docker hub
+    networks: # especificação das redes locais as quais este container (serviço) estará conectado
+      - minha-rede 
   node:
-    build:
-      dockerfile: ./Dockerfile    
-      context: .
-    image: merciof/ecommerce-livro
-    container_name: rural-books
+    build: # contrução de imagem a partir de Dockerfile
+      dockerfile: ./Dockerfile
+      context: . 
+    image: merciof/ecommerce-livro # nome da imagem a ser construída
+    container_name: rural-books #n nome do container a ser subido
     ports:
-      - 3000
+      - "80:3000" # a porta 80 do servidor web estará associada a porta 3000 exposta no container
     networks: 
       - minha-rede
     depends_on:
@@ -149,9 +149,35 @@ Successfully built 2cc86de69f55
 Successfully tagged merciof/ecommerce-book:latest
 ubuntu uses an image, skipping
 
+***********************************************
+
+docker-compose up -d
+Creating network "docker-books_minha-rede" with driver "bridge"
+Pulling mongodb (mongo:)...
+latest: Pulling from library/mongo
+7b722c1070cd: Pull complete
+5fbf74db61f1: Pull complete
+ed41cb72e5c9: Pull complete
+7ea47a67709e: Pull complete
+778aebe6fb26: Pull complete
+3b4b1e0b80ed: Pull complete
+844ccc42fe76: Pull complete
+eab01fe8ebf8: Pull complete
+e5758d5381b1: Pull complete
+a795f1f35522: Pull complete
+67bc6388d1cd: Pull complete
+89b55f4f3473: Pull complete
+10886b20b4fc: Pull complete
+Digest: sha256:a7c1784c83536a3c686ec6f0a1c570ad5756b94a1183af88c07df82c5b64663c
+Status: Downloaded newer image for mongo:latest
+Creating mongodb ... done
+Creating rural-books ... done
+
+
+
 A imagem do projeto foi subida no ducker hub: https://cloud.docker.com/u/merciof/repository/docker/merciof/ecommerce-livro
 
-Para executar o projeto podem ser feitos os seguintes comandos:
+Para executar o projeto, sem o docker-compose, podem ser feitos os seguintes comandos:
 
 Criaçao da rede local 'minha-rede' para a comunicação entre o containeres:
 
@@ -159,16 +185,19 @@ Criaçao da rede local 'minha-rede' para a comunicação entre o containeres:
 sudo docker network create --driver bridge minha-rede 
 ```
 
-Em seguida, o primeiro container pode ser subido com o comando: 
+Sobe um container do mongodb para servir a base de dados: 
+
+```bash
+docker run -d --name mongodb --network minha-rede mongo
+```
+
+Em seguida, o segundo container pode ser subido com o comando: 
 
 ```bash
 # a flag -d faz o container rodar separadamente do terminal 
 # -p associa a porta 80 do host a porta 3000 exposta no container
 docker run -d -p 80:3000 --network minha-rede merciof/ecommerce-livro 
 ```
-
-```bash
-docker run -d --network minha-rede
-```
+Através da rota http://localhost:80/seed dados são inseridos na base de dados. 
 
 O projeto está on na aws no seguinte host: ec2-3-90-146-4.compute-1.amazonaws.com
